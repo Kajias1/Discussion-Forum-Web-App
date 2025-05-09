@@ -1,0 +1,14 @@
+### Discussion Forum App project made by Sydygaliev Kumar for a project review on Intro to Programming Course on 10.05.2025.
+
+This app was written using Flask framework on Python and SQLAlchemy.
+
+# To run on a local machine:
+1. Head to the main directory - `DISCUSSION FORUM WEB APP\`
+2. Activate the virtual environment - `.\venv\Scripts\activate` (Windows), `source venv/bin/activate` (Linux/MacOS)
+3. Enter `cd app`
+4. Run project using - `flask run`
+5. Enter the main page on a browser - `localhost:5000`
+
+# To stop the running app:
+1. Press `Ctrl + C`
+2. Enter deactivate or close the terminal

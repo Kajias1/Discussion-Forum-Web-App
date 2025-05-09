@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+<div class="container">
+    <div class="left-box">
+        <div class="left-box-inner-b1">
+            {% if user.is_authenticated %}
+            <img class="left-box-profile-photo" src="{{ url_for('static', filename='images/profile_images/' + user.profile_photo) }}">
+            <label class="username-label">{{ user.username }}</label>
+            <div class="user-stats">
+                <div class="user-stat-row">
+                    <label>Posts</label>
+                    <label>{{ user.posts|length }}</label>
+                </div>
+                <div class="user-stat-row">
+                    <label>Answers</label>
+                    <label>{{ user.answers|length }}</label>
+                </div>
+                <div class="user-stat-row">
+                    <label>Created at</label>
+                    <label>{{ user.date_created.strftime('%d.%m.%Y') if user.date_created else 'Unknown' }}</label>
+                </div>
+            </div>
+            <a href="{{ url_for('main.profile') }}">Profile</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="middle-box">
+        {% block middle_box_content %}{% endblock %}
+    </div>
+    <div class="right-box">
+        {% block right_box_content %}{% endblock %}
+    </div>
+</div>
+
+<div class="flash-container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }}">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+</div>
+{% endblock %}

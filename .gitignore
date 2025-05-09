@@ -1,0 +1,16 @@
+# Ignore virtual environment
+venv/
+
+# Ignore environment files and Python cache
+.env
+__pycache__/
+
+# Ignore __pycache__ and instance folder in app
+app/__pycache__/
+app/instance/
+
+# Ignore all files in this folder...
+app/static/images/profile_images/*
+
+# ...except this specific one
+!app/static/images/profile_images/default_avatar.png

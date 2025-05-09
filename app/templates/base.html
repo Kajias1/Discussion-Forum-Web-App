@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discussion Forum</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="/">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Forum Logo">
+            </a>
+        </div>
+        <div class="nav-links">
+            <div class="nav-link-box">
+                <a href="/">Home</a>
+            </div>
+
+            {% if not current_user.is_authenticated %}
+            <div class="nav-link-box">
+                <a href="{{ url_for('main.login') }}">Sign in</a>
+            </div>
+            <div class="nav-link-box">
+                <a href="{{ url_for('main.register') }}">Sign up</a>
+            </div>
+            {% else %}
+            <div class="nav-link-box">
+                <a href="{{ url_for('main.logout') }}">Log out</a>
+            </div>
+            {% endif %}
+        </div>
+    </nav>
+    <div class="main-content">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

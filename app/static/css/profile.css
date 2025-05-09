@@ -1,0 +1,180 @@
+.profile-body {
+    padding: 100px;
+    display: flex;
+    flex-direction: row;
+    gap: 50px
+}
+
+.profile-img-container {
+    display: flex;
+    padding-left: 100px;
+    flex-direction: column;
+}
+
+.profile-info-container {
+    max-height: 400px;
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid #bbbbbb;
+    padding-left: 40px;
+    gap: 20px;
+}
+
+.profile-info-container form {
+    width: 600px;
+    height: auto;
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-grow: 1;
+}
+
+.profile-info-container textarea {
+    min-width: 400px;
+    min-height: 100px;
+    max-height: 100%;
+    height: auto;
+    resize: none;
+}
+
+.profile-info-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.profile-img {
+    max-width: 300px;
+    object-fit: cover;
+}
+
+.user-stats {
+    margin-top: 14px;
+    width: 100%;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.user-stat-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.profile-redirect-group {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.profile-redirect-group a {
+    text-decoration: none;
+    padding: 10px;
+    background-color: transparent;
+    color: black;
+    border-radius: 10px;
+    border: 1.5px solid #bbbbbb;
+    transition: background-color 0.1s ease;
+}
+
+.profile-redirect-group a:hover {
+    background-color: #bbbbbb;
+}
+
+.profile-redirect-group a.active {
+    background-color: #bbbbbb;
+    color: white;
+}
+
+.user-view-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.user-view-info .username-label {
+    margin-top: -4px;
+    font-size: 24px;
+    font-weight: 300;
+}
+
+.user-view-info .user-bio {
+    font-size: 13px;
+    max-width: 700px;
+}
+
+.user-view-info .commentary {
+    font-size: 13px;
+    color: gray;
+}
+
+.user-view-info-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.text-danger {
+    color: #dc3545;
+    font-size: 14px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+
+.flash-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.alert {
+    padding: 10px 15px;
+    border-radius: 8px;
+    color: white;
+    font-size: 20px;
+    background-color: #444;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    animation: fadeInOut 5s ease forwards;
+}
+
+.alert-success {
+    background-color: #28a745;
+}
+
+.alert-danger {
+    background-color: #dc3545;
+}
+
+.alert-warning {
+    background-color: #ffc107;
+    color: black;
+}
+
+.alert-info {
+    background-color: #17a2b8;
+}
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    10% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    90% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+}

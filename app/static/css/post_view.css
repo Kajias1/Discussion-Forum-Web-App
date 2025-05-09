@@ -1,0 +1,177 @@
+.middle-box-inner-b1 {
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 60px);
+    height: auto;
+}
+
+h2 {
+    font-weight: 100;
+    color:rgb(68, 68, 68)
+}
+
+.post-date-label, .answer-date-label {
+    font-size: 12px;
+    color: #8d8d8d;
+    margin-top: 14px;
+}
+
+.post-container {
+    width: 100%;
+    overflow-x: auto;
+    word-wrap: break-word;
+    font-size: 14px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 14px;
+}
+
+.answers-container {
+    padding-left: 28px;
+    padding-right: 28px;
+}
+
+.answer-container {
+    padding-bottom: 14px;
+    border-bottom: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.answer-container-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+}
+
+.answer-container a {
+    text-decoration: none;
+    color: #008deb;
+    font-size: 16px;
+    font-weight: 300;
+    font-style: normal;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+p code {
+    background-color: #d4d3d3;
+    padding: 2px;
+    border-radius: 5px;
+}
+
+.answer-container img {
+    max-width: 100%;
+}
+
+.answer-container-header a {
+    margin: 0px;
+}
+
+.answer-container-header .answer-date-label {
+    margin-top: 4px;
+}
+
+.your-answer-container {
+    flex-direction: column;
+}
+
+.your-answer-container h2 {
+    font-weight: 300;
+    color:rgb(68, 68, 68)
+}
+
+pre code {
+    display: block;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    max-width: 100%;
+}
+
+.post-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.post-container::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.post-container::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.post-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.post-header-row {
+    display: flex;
+    border-bottom: 1px solid #ccc;
+    height: 30px;
+    padding-right: 14px;
+    margin-top: 14px;
+    padding-bottom: 14px;
+    flex-direction: column;
+    height: auto;
+}
+
+.post-header-row a {
+    text-decoration: none;
+    color: #008deb;
+    font-size: 18px;
+    font-weight: 300;
+    font-style: normal;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.container-flex-row {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+}
+
+.form-content-input {
+    margin-top: 10px;
+    width: 100%;
+    max-width: 100%;
+    min-height: 200px;
+    box-sizing: border-box;
+}
+
+.cke {
+    width: 100% !important;
+    max-width: 100%;
+}
+
+.cke_editor_content {
+    width: 100% !important;
+    max-width: 100%;
+}
+
+.ck-editor__editable {
+    width: 100% !important;
+    max-width: 100%;
+}
+
+.btn {
+    width: auto;
+    margin-top: 14px;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s ease;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+.text-danger {
+    color: #dc3545;
+    font-size: 14px;
+    margin-bottom: 10px;
+}

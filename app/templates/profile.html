@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+<div class="profile-body">
+    <div class="profile-img-container">
+        <img class="profile-img" src="{{ url_for('static', filename='images/profile_images/' + user.profile_photo) }}">
+        <div class="user-stats">
+            <div class="user-stat-row">
+                <label>Posts</label>
+                <label>{{ user.posts|length }}</label>
+            </div>
+            <div class="user-stat-row">
+                <label>Answers</label>
+                <label>{{ user.answers|length }}</label>
+            </div>
+            <div class="user-stat-row">
+                <label>Created at</label>
+                <label>{{ user.date_created.strftime('%d.%m.%Y') if user.date_created else 'Unknown' }}</label>
+            </div>
+        </div>
+    </div>
+    <div class="profile-info-container">
+        <div class="profile-redirect-group">
+            <a href="{{ url_for('main.profile_view', state='view') }}" class="{% if state == 'view' %}active{% endif %}">Profile</a>
+            <a href="{{ url_for('main.profile_view', state='settings') }}" class="{% if state == 'settings' %}active{% endif %}">Settings</a>
+        </div>
+        {% if state == 'view' %}
+        <div class="user-view-info">
+            <div class="user-view-info-col">
+                <label class="commentary">Username</label>
+                <label class="username-label">{{ user.username }}</label>
+            </div>
+
+            {% if user.bio %}
+            <div class="user-view-info-col">
+                <label class="commentary">Bio</label>
+                <text class="user-bio">{{ user.bio }}</text>
+            </div>
+            {% endif %}
+        </div>
+        {% elif state == 'settings' %}
+        <form method="POST" action="{{ url_for('main.profile_view', state='settings') }}" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            
+            <div class="profile-info-row">
+                <label>Username</label>
+                <input type="text" id="username" name="username" value="{{ user.username }}" required>
+            </div>
+
+            <label for="bio">Bio</label>
+            <textarea id="bio" name="bio">{{ user.bio }}</textarea>
+            {% for error in form.bio.errors %}
+            <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+
+            <label for="profile_picture">Profile Picture</label>
+            {{ form.profile_picture }}
+            {% for error in form.profile_picture.errors %}
+            <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+
+            <button type="submit">Save Changes</button>
+        </form>
+        {% endif %}
+    </div>
+</div>
+
+<div class="flash-container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }}">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+</div>
+{% endblock %}

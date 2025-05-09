@@ -1,0 +1,64 @@
+{% extends "body.html" %}
+
+{% block middle_box_content %}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/create_post.css') }}">
+
+<div class="middle-box-inner-b1">
+    <form method="POST" action="{{ url_for('main.create_post') }}">
+        <div class="box-justify-space-around">
+            <div class="heading-with-icon">
+                <h2>New question</h2>
+                <img src="{{ url_for('static', filename='images/forum.svg') }}" alt="icon" width="24" height="24">
+            </div>
+        </div>
+
+        {{ form.hidden_tag() }}
+
+        <div class="form-group">
+            <label for="title">Title</label>
+            <label class="commentary">Ask your question as if you're talking to someone directly — be clear and include
+                specific details.</label>
+            {{ form.title(class="form-string-input", placeholder="e.g how to center a 'div'?") }}
+            {% for error in form.title.errors %}
+            <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            <label for="content">Details</label>
+            {{ form.content(class="form-content-input") }}
+            {% for error in form.content.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            {{ form.submit(class="btn", value="Submit") }}
+        </div>
+    </form>
+</div>
+
+{{ ckeditor.load() }}
+{{ ckeditor.config(name='content', extraPlugins='codesnippet', codeSnippet_theme='github') }}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>
+    CKEDITOR.on('instanceReady', function (ev) {
+        const editor = ev.editor;
+        const doc = editor.document;
+
+        // This delay ensures styles apply after editor fully renders
+        setTimeout(function () {
+            const link = doc.createElement('link');
+            link.setAttribute('rel', 'stylesheet');
+            link.setAttribute('type', 'text/css');
+            link.setAttribute('href', 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css');
+
+            doc.getHead().append(link);
+        }, 100);
+    });
+</script>
+
+{% endblock %}

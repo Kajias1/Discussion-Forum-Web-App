@@ -1,0 +1,171 @@
+{% extends "body.html" %}
+
+{% block middle_box_content %}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
+<link rel="stylesheet" href="{{ url_for('static', filename='css/post_view.css') }}">
+
+<div class="middle-box-inner-b1">
+    <div class="post-header-row">
+        <div class="container-flex-row">
+            <img src="{{ url_for('static', filename='images/profile_images/' + post.author.profile_photo) }}" style="width: 30px; height: 30px;">
+            <a href="{{ url_for('main.profile_view', user_id=post.author.id) }}">{{ post.author.username }}</a>
+        </div>
+        <label class="post-date-label" id="created-at-label">123</label>
+    </div>
+    <div class="post-container">
+        <h2>{{ post.title }}</h2>
+        {{ post.content|safe }}
+    </div>
+    <h2>{{ post.answers|length }} answers</h2>
+    <div class="answers-container">
+        {% for answer in post.answers %}
+        <div class="answer-container">
+            <div class="answer-container-header">
+                <div class="container-flex-row">
+                    <img src="{{ url_for('static', filename='images/profile_images/' + answer.author.profile_photo) }}" style="width: 30px; height: 30px;">
+                    <a href="{{ url_for('main.profile_view', user_id=answer.author.id) }}">{{ answer.author.username }}</a>
+                </div>
+                <label class="answer-date-label" id="answer-created-at-label-{{ answer.id }}"></label>
+            </div>
+            {{ answer.content|safe }}
+        </div>
+        {% endfor %}
+    </div>
+    <div class="your-answer-container">
+        <h2>Your answer</h2>
+        <form method="POST" action="{{ url_for('main.post_view', post_id=post.id) }}">
+            {{ answerForm.hidden_tag() }}
+
+            <div class="form-group">
+                {{ answerForm.content(class="form-content-input") }}
+                {% for error in answerForm.content.errors %}
+                <div class="text-danger">{{ error }}</div>
+                {% endfor %}
+            </div>
+
+            <div class="form-group">
+                {{ answerForm.submit(class="btn", value="Submit") }}
+            </div>
+        </form>
+    </div>
+</div>
+
+{{ ckeditor.load() }}
+{{ ckeditor.config(name='content', extraPlugins='codesnippet', codeSnippet_theme='github') }}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>
+    CKEDITOR.on('instanceReady', function (ev) {
+        const editor = ev.editor;
+        const doc = editor.document;
+
+        setTimeout(function () {
+            const link = doc.createElement('link');
+            link.setAttribute('rel', 'stylesheet');
+            link.setAttribute('type', 'text/css');
+            link.setAttribute('href', 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css');
+
+            doc.getHead().append(link);
+        }, 100);
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        hljs.highlightAll();
+
+        document.querySelectorAll('pre.ql-syntax, .ql-code-block').forEach((block) => {
+            const code = block.textContent.trim();
+
+            let language = 'javascript';
+
+            if (code.includes('#include') || code.includes('std::')) language = 'cpp';
+            else if (code.includes('def ') || code.includes('import ') && code.includes(':')) language = 'python';
+            else if (code.includes('<?php')) language = 'php';
+            else if (code.includes('console.log') || code.includes('function')) language = 'javascript';
+            else if (code.includes('public static void main')) language = 'java';
+            else if (code.includes('<html') || code.includes('</html>')) language = 'markup';
+
+            if (!block.classList.contains(`language-${language}`)) {
+                block.classList.add(`language-${language}`);
+            }
+
+            if (block.tagName === 'PRE' && !block.querySelector('code')) {
+                const codeEl = document.createElement('code');
+                codeEl.textContent = code;
+                codeEl.classList.add(`language-${language}`);
+                block.innerHTML = '';
+                block.appendChild(codeEl);
+                hljs.highlightElement(codeEl);
+            } else {
+                hljs.highlightElement(block);
+            }
+        });
+
+        const labelId = "created-at-label";
+        const labelEl = document.getElementById(labelId);
+        if (!labelEl) return;
+
+        const createdAt = new Date({{ post.created_at | tojson }});
+        const now = new Date();
+        const secondsAgo = Math.floor((now - createdAt) / 1000);
+
+        const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
+        const units = [
+            { unit: 'year', seconds: 31536000 },
+            { unit: 'month', seconds: 2592000 },
+            { unit: 'day', seconds: 86400 },
+            { unit: 'hour', seconds: 3600 },
+            { unit: 'minute', seconds: 60 },
+            { unit: 'second', seconds: 1 },
+        ];
+
+        for (const { unit, seconds } of units) {
+            const diff = Math.floor(secondsAgo / seconds);
+            if (Math.abs(diff) >= 1) {
+                labelEl.textContent = "Asked " + rtf.format(-diff, unit);
+                break;
+            }
+        }
+
+        {% for answer in post.answers %}
+        (function() {
+            const labelId = "answer-created-at-label-{{ answer.id }}";
+            const labelEl = document.getElementById(labelId);
+            if (!labelEl) return;
+
+            const createdAt = new Date({{ answer.created_at|tojson }});
+            const now = new Date();
+            const secondsAgo = Math.floor((now - createdAt) / 1000);
+
+            const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
+            const units = [
+                { unit: 'year', seconds: 31536000 },
+                { unit: 'month', seconds: 2592000 },
+                { unit: 'day', seconds: 86400 },
+                { unit: 'hour', seconds: 3600 },
+                { unit: 'minute', seconds: 60 },
+                { unit: 'second', seconds: 1 },
+            ];
+
+            for (const { unit, seconds } of units) {
+                const diff = Math.floor(secondsAgo / seconds);
+                if (Math.abs(diff) >= 1) {
+                    labelEl.textContent = "Answered " + rtf.format(-diff, unit);
+                    break;
+                }
+            }
+        })();
+        {% endfor %}
+        
+        const form = document.getElementById('answerForm');
+        
+        if (form) {
+            form.addEventListener('submit', function(event) {
+                form.reset();
+            });
+        }
+    });
+</script>
+
+{% endblock %}

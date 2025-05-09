@@ -1,0 +1,94 @@
+body {
+    background-color: #f7f7f7;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+h2 {
+    text-align: left;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+form {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    color: #444;
+}
+
+.password-feedback {
+    display: block;
+    color: red;
+    font-size: 13px;
+    margin-top: -13px;
+    margin-bottom: 8px;
+}
+
+.btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s ease;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+.text-danger {
+    color: #dc3545;
+    font-size: 14px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+
+.to-sign-up-page-group {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    padding: 7px 0px;
+}
+
+.to-sign-up-page-group label {
+    font-weight: 100;
+}
+
+.to-sign-up-page-group a {
+    font-weight: 100;
+    text-decoration: none;
+}
+
+.alert {
+    font-weight: 100;
+}
+
+.alert-danger {
+    color: #dc3545;
+}
